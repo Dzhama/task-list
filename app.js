@@ -19,6 +19,10 @@ function loadEventListeners() {
     form.addEventListener('submit', addTask);
     //remove task event
     taskList.addEventListener('click', removeTask);
+    // clear all the Tasks
+    clearBtn.addEventListener('click', clearTasks);
+    //filter task events
+    filter.addEventListener('keyup', filterTasks);
 }
 
 // Add Task 
@@ -26,14 +30,12 @@ function addTask (e) {
     if(taskInput.value === '') {
         alert("add a task");
     }
-
     // creating li element 
     const li = document.createElement('li');
     //add class
     li.className = "collection-item";
     //create a tex\t node and append to li 
     li.appendChild(document.createTextNode(taskInput.value));
-
     // create new link to li
     const link = document.createElement('a');
     //add class
@@ -42,12 +44,11 @@ function addTask (e) {
     link.innerHTML = '<i class="fa fa-trash"></i>';
     // append link to li
     li.appendChild(link);
-
     // apend li to ul
     taskList.appendChild(li);
-
+    // clear input
     taskInput.value = "";
-    
+    // prevent from default
     e.preventDefault();
 }
 
@@ -56,9 +57,32 @@ function removeTask(e) {
     if(e.target.parentElement.classList.contains('delete-item')) {
        e.target.parentElement.parentElement.remove();
     }
-    e.preventDefault();
 }
 
+// Clear tasks
+function clearTasks() {
+    //taskList.innerHTML = '';
+    //Faster
+    while(taskList.firstChild) {
+        taskList.removeChild(taskList.firstChild);
+    }
+}
+
+//filter Tasks 
+function filterTasks (e) {
+    //targeting input value
+    const text = e.target.value.toLowerCase();
+
+    document.querySelectorAll('.collection-item').forEach(function(task){
+        
+        const item = task.firstChild.textContent;
+        if(item.toLowerCase().indexOf(text) != -1) {
+            task.style.display = "block";
+        }else {
+            task.style.display = 'none';
+        }
+    })
+}
 
 
 
