@@ -60,30 +60,32 @@ function getTasks() {
 function addTask (e) {
     if(taskInput.value === '') {
         alert("add a task");
-    }
-    // creating li element 
-    const li = document.createElement('li');
-    //add class
-    li.className = "collection-item";
-    //create a tex\t node and append to li 
-    li.appendChild(document.createTextNode(taskInput.value));
-    // create new link to li
-    const link = document.createElement('a');
-    //add class
-    link.className = "delete-item secondary-content";
-    //add icon
-    link.innerHTML = '<i class="fa fa-trash"></i>';
-    // append link to li
-    li.appendChild(link);
-    // apend li to ul
-    taskList.appendChild(li);
-    // clear input
+    }else {
+        // creating li element 
+        const li = document.createElement('li');
+        //add class
+        li.className = "collection-item";
+        //create a tex\t node and append to li 
+        li.appendChild(document.createTextNode(taskInput.value));
+        // create new link to li
+        const link = document.createElement('a');
+        //add class
+        link.className = "delete-item secondary-content";
+        //add icon
+        link.innerHTML = '<i class="fa fa-trash"></i>';
+        // append link to li
+        li.appendChild(link);
+        // apend li to ul
+        taskList.appendChild(li);
+        // clear input
 
-    // store in LC
-    storeTaskInLocalStorage(taskInput.value);
+        // store in LC
+        storeTaskInLocalStorage(taskInput.value);
 
-    taskInput.value = "";
+        taskInput.value = "";
     // prevent from default
+    }
+    
     e.preventDefault();
 }
 
